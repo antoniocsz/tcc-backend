@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Occurrence {
+  id String @id @default(uuid())
+
+  id_camera String
+  timestamp DateTime
+
+  frame   String
+  Polygon Polygon?
+
+  @@map("occurrences")
+}
+
+model Polygon {
+  id String @id @default(uuid())
+
+  class String
+  x1    Float
+  x2    Float
+  y1    Float
+  y2    Float
+
+  occurrence   Occurrence @relation(fields: [occurrenceId], references: [id])
+  occurrenceId String     @unique
+
+  @@map("polygons")
+}
