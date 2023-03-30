@@ -28,6 +28,8 @@ model Polygon {
   y1    Float
   y2    Float
 
+  conf Float
+
   occurrence   Occurrence @relation(fields: [occurrenceId], references: [id])
   occurrenceId String     @unique
 
