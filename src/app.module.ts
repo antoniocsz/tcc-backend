@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { OccurrencesModule } from './occurrences/occurrences.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { OccurrenceModule } from './occurrence/occurrence.module';
 
 @Module({
-  imports: [OccurrencesModule, PrismaModule],
+  imports: [OccurrenceModule, PrismaModule],
 })
 export class AppModule {}
