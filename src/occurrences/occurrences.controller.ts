@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { OccurrencesService } from './occurrences.service';
-import { CreateOccurrenceDto } from './dto/create-occurrence.dto';
+import { OccurrenceDto } from './dto/occurrence.dto';
 
 @Controller('occurrences')
 export class OccurrencesController {
   constructor(private readonly occurrencesService: OccurrencesService) {}
 
   @Post()
-  create(@Body() createOccurrenceDto: CreateOccurrenceDto) {
-    return this.occurrencesService.create(createOccurrenceDto);
+  async create(@Body() data: OccurrenceDto) {
+    return this.occurrencesService.create(data);
   }
 
   @Get()

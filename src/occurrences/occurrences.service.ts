@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOccurrenceDto } from './dto/create-occurrence.dto';
-import { UpdateOccurrenceDto } from './dto/update-occurrence.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { OccurrenceDto } from './dto/occurrence.dto';
 
 @Injectable()
 export class OccurrencesService {
-  create(createOccurrenceDto: CreateOccurrenceDto) {
-    return 'This action adds a new occurrence';
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: OccurrenceDto) {
+    return `This action returns new occurrence`;
   }
 
   findAll() {
@@ -14,13 +16,5 @@ export class OccurrencesService {
 
   findOne(id: number) {
     return `This action returns a #${id} occurrence`;
-  }
-
-  update(id: number, updateOccurrenceDto: UpdateOccurrenceDto) {
-    return `This action updates a #${id} occurrence`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} occurrence`;
   }
 }
