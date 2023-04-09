@@ -5,5 +5,5 @@ export class OccurrenceEntity {
   cameraId: string;
   timestamp: Date;
   frame: string;
-  polygons: PolygonEntity[];
+  polygons?: PolygonEntity[];
 }

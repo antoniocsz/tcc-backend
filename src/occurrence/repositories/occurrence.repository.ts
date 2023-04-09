@@ -6,15 +6,41 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class OccurrenceRepository extends IOccurrenceRepository {
-  private prismaService: PrismaService;
+  constructor(private prisma: PrismaService) {
+    super();
+  }
 
   async create(data: CreateOccurrenceDto): Promise<void> {
-    throw new Error('Method not implemented.');
+    await this.prisma.occurrence.create({
+      data: {
+        cameraId: data.cameraId,
+        timestamp: data.timestamp,
+        frame: data.frame,
+        polygons: {
+          createMany: {
+            data: [...data.polygons],
+          },
+        },
+      },
+    });
   }
+
   async findAll(): Promise<OccurrenceEntity[]> {
-    throw new Error('Method not implemented.');
+    const occurrences = await this.prisma.occurrence.findMany();
+    return occurrences;
   }
+
   async findOne(id: string): Promise<OccurrenceEntity> {
-    throw new Error('Method not implemented.');
+    const occurrence = await this.prisma.occurrence.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!occurrence) {
+      throw new Error('Occurrence not found');
+    }
+
+    return occurrence;
   }
 }

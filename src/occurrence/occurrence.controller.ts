@@ -1,12 +1,10 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Get, Post, Controller, Body, Param } from '@nestjs/common';
 import { CreateOccurrenceDto } from './dto/create-occurrence.dto';
-import { OccurrenceInMemoryRepository } from './repositories/occurrenceInMemory.repository';
+import { OccurrenceRepository } from './repositories/occurrence.repository';
 
 @Controller('occurrence')
 export class OccurrenceController {
-  constructor(
-    private readonly occurrenceRepository: OccurrenceInMemoryRepository,
-  ) {}
+  constructor(private readonly occurrenceRepository: OccurrenceRepository) {}
 
   @Post()
   create(@Body() createOccurrenceDto: CreateOccurrenceDto) {
