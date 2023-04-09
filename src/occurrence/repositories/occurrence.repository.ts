@@ -16,7 +16,7 @@ export class OccurrenceRepository extends IOccurrenceRepository {
         cameraId: data.cameraId,
         timestamp: data.timestamp,
         frame: data.frame,
-        polygons: [...data.polygons],
+        polygons: data.polygons,
       },
     });
   }

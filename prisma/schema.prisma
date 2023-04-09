@@ -1,5 +1,5 @@
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -8,7 +8,7 @@ generator client {
 }
 
 model Occurrence {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(uuid())
   cameraId  String
   timestamp DateTime
   frame     String
@@ -17,11 +17,17 @@ model Occurrence {
   @@map("occurrences")
 }
 
-type Polygon {
+model Polygon {
+  id    String @id @default(uuid())
   class String
   x1    Float
   x2    Float
   y1    Float
   y2    Float
   conf  Float
+
+  occurrence   Occurrence @relation(fields: [occurrenceId], references: [id])
+  occurrenceId String
+
+  @@map("polygons")
 }

@@ -1,5 +1,4 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
-import { CreatePolygonDto } from './create-polygon.dto';
+import { IsNotEmpty, IsArray, IsNumber } from 'class-validator';
 
 export class CreateOccurrenceDto {
   @IsNotEmpty()
@@ -11,6 +10,31 @@ export class CreateOccurrenceDto {
   @IsNotEmpty()
   frame?: string;
 
-  @IsOptional()
-  polygons?: CreatePolygonDto[];
+  @IsArray()
+  polygons?: PolygonDto[];
+}
+
+export class PolygonDto {
+  @IsNotEmpty()
+  class: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  x1: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  x2: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  y1: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  y2: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  conf: number;
 }
