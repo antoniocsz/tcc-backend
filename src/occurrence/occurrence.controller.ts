@@ -1,23 +1,25 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { OccurrenceService } from './occurrence.service';
 import { CreateOccurrenceDto } from './dto/create-occurrence.dto';
+import { OccurrenceInMemoryRepository } from './repositories/occurrenceInMemory.repository';
 
 @Controller('occurrence')
 export class OccurrenceController {
-  constructor(private readonly occurrenceService: OccurrenceService) {}
+  constructor(
+    private readonly occurrenceRepository: OccurrenceInMemoryRepository,
+  ) {}
 
   @Post()
   create(@Body() createOccurrenceDto: CreateOccurrenceDto) {
-    return this.occurrenceService.create(createOccurrenceDto);
+    return this.occurrenceRepository.create(createOccurrenceDto);
   }
 
   @Get()
   findAll() {
-    return this.occurrenceService.findAll();
+    return this.occurrenceRepository.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.occurrenceService.findOne(+id);
+    return this.occurrenceRepository.findOne(id);
   }
 }
