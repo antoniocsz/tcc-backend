@@ -11,13 +11,16 @@ export class OccurrenceRepository extends IOccurrenceRepository {
   }
 
   async create(data: CreateOccurrenceDto): Promise<void> {
-    await this.prisma.occurrence.create({
-      data: {
-        cameraId: data.cameraId,
-        timestamp: data.timestamp,
-        frame: data.frame,
-        polygons: data.polygons,
-      },
+    await this.prisma.$transaction(async (prisma) => {
+      const user = await prisma.occurrence.create({
+        data: {
+          cameraId: data.cameraId,
+          timestamp: data.timestamp,
+          frame: data.frame,
+        },
+      });
+
+      console.log(user);
     });
   }
 
