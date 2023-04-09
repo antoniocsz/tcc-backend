@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateOccurrenceDto } from '../dto/create-occurrence.dto';
 import { IOccurrenceRepository } from '../interfaces/occurrence.interface';
 import { OccurrenceEntity } from '../entities/occurrence.entity';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class OccurrenceRepository extends IOccurrenceRepository {
@@ -16,11 +16,7 @@ export class OccurrenceRepository extends IOccurrenceRepository {
         cameraId: data.cameraId,
         timestamp: data.timestamp,
         frame: data.frame,
-        polygons: {
-          createMany: {
-            data: [...data.polygons],
-          },
-        },
+        polygons: [...data.polygons],
       },
     });
   }
@@ -30,7 +26,7 @@ export class OccurrenceRepository extends IOccurrenceRepository {
     return occurrences;
   }
 
-  async findOne(id: string): Promise<OccurrenceEntity> {
+  async findOne(id: string): Promise<OccurrenceEntity | null> {
     const occurrence = await this.prisma.occurrence.findUnique({
       where: {
         id: id,

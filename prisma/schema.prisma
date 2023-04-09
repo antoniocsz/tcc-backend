@@ -7,20 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Polygon {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  class        String
-  x1           Float
-  x2           Float
-  y1           Float
-  y2           Float
-  conf         Float
-  occurrence   Occurrence @relation(fields: [occurrenceId], references: [id])
-  occurrenceId String     @db.ObjectId
-
-  @@map("polygons")
-}
-
 model Occurrence {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   cameraId  String
@@ -29,4 +15,13 @@ model Occurrence {
   polygons  Polygon[]
 
   @@map("occurrences")
+}
+
+type Polygon {
+  class String
+  x1    Float
+  x2    Float
+  y1    Float
+  y2    Float
+  conf  Float
 }
