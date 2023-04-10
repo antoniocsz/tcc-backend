@@ -5,6 +5,12 @@ import { OccurrenceRepository } from './repositories/occurrence.repository';
 
 @Module({
   controllers: [OccurrenceController],
-  providers: [OccurrenceRepository, PrismaService],
+  providers: [
+    PrismaService,
+    {
+      provide: OccurrenceRepository,
+      useClass: OccurrenceRepository,
+    },
+  ],
 })
 export class OccurrenceModule {}

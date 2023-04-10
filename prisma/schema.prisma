@@ -8,14 +8,15 @@ generator client {
 }
 
 model Occurrence {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   cameraId  String
   timestamp DateTime
   frame     String
-  polygons  Polygon[]
 
   createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
+  updatedAt DateTime @updatedAt
+
+  polygons Polygon[]
 
   @@map("occurrences")
 }
